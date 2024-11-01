@@ -3,12 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { format, addMonths, subMonths, setSeconds } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
+import executeQuery from '../components/MyqSql/MysqlConn'; 
 import "../assets/styles/calendar.css";
 
 interface RenderHeaderProps {
     currentMonth: Date;
     prevMonth: () => void;
     nextMonth: () => void;
+}
+
+const getSecheduledata = async () => {
+    const data = await executeQuery(`SELECT * FROM TB_RESERVE_DATA`);
+    return data;
 }
 
 const RenderHeader: React.FC<RenderHeaderProps> = ({ currentMonth, prevMonth, nextMonth }) => {
@@ -121,9 +127,9 @@ const RenderReserveWrite : React.FC = () => {
             <br/>
             <label>
             예약자
-            <input type="text" placeholder="예약자" size={10}/>
+            <input type="text" name="name" id='name' placeholder="예약자" size={10}/>
             전화번호
-            <input type='text' placeholder="전화번호" size={10}/>
+            <input type='text' name='phone' id='phone' placeholder="전화번호" size={10}/>
             </label>
             <br/>
             <button>예약하기</button>
@@ -147,6 +153,8 @@ const Calendar: React.FC = () => {
     useEffect(() => {
         const today = new Date();
         setSelectedDate(today);
+        const getSecheduledata:any = async () => await getSecheduledata();
+        console.log(getSecheduledata);
     }, [])
 
     return (
