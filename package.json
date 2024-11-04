@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/mysql": "^2.15.26",
     "date-fns": "^4.1.0",
     "mysql2": "^3.11.3",
     "net": "^1.0.2",

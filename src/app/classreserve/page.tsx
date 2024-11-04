@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { format, addMonths, subMonths, setSeconds } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
-import executeQuery from '../components/MyqSql/MysqlConn'; 
+import executeQuery from '../api/MysqlConn'; 
 import "../assets/styles/calendar.css";
 
 interface RenderHeaderProps {
