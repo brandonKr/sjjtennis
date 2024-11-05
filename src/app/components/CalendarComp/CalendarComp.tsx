@@ -1,10 +1,8 @@
-'use client';
-import React, { useState } from 'react';
 import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
-import "../assets/Styles/calendar.css";
-
+import { useState } from 'react';
+import "../../assets/styles/calendar.css";
 
 interface RenderHeaderProps {
     currentMonth: Date;
@@ -31,8 +29,7 @@ const RenderHeader: React.FC<RenderHeaderProps> = ({ currentMonth, prevMonth, ne
     );
 };
 
-
-const RenderDays = () => {
+const RenderDays: React.FC = () => {
     const days = [];
     const date = ['Sun', 'Mon', 'Thu', 'Wed', 'Thrs', 'Fri', 'Sat'];
     for (let i = 0; i < 7; i++) {
@@ -45,7 +42,14 @@ const RenderDays = () => {
     return <div className="days row">{days}</div>;
 };
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
+interface RenderCellsProps {
+    currentMonth: Date;
+    selectedDate: Date;
+    onDateClick: (day: Date) => void;
+}
+
+
+const RenderCells: React.FC<RenderCellsProps> = ({ currentMonth, selectedDate, onDateClick }) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -69,8 +73,8 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
                             ? 'not-valid'
                             : 'valid'
                     }`}
-                    key={day}
-                    onClick={() => onDateClick(parse(cloneDay))}
+                    key={formattedDate}
+                    onClick={() => onDateClick(cloneDay)}
                 >
                     <span
                         className={
@@ -86,7 +90,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
             day = addDays(day, 1);
         }
         rows.push(
-            <div className="row" key={day}>
+            <div className="row" key={format(day, 'yyyy-MM-dd')}>
                 {days}
             </div>,
         );
@@ -95,18 +99,21 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
     return <div className="body">{rows}</div>;
 };
 
-const Calendar = () => {
-    const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [selectedDate, setSelectedDate] = useState(new Date());
+
+const Calendar: React.FC = () => {
+    const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
     };
     const nextMonth = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
-    const onDateClick = (day) => {
+    const onDateClick = (day: Date) => {
         setSelectedDate(day);
     };
+
+
     return (
         <div className="calendar">
             <RenderHeader
