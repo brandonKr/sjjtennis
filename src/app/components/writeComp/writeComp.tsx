@@ -1,8 +1,15 @@
+const createClass = () =>{
+    const nameInput = document.getElementById('name') as HTMLInputElement | null;
+    if (nameInput) {
+        nameInput.value = '이름을 씁니다.';
+    }
+}
+
 const RenderReserveWrite : React.FC = () => {
     let times = [];
     for (let i = 10; i < 22; i++) {
         times.push(
-            <option value="{i}:00">{i}:00</option>
+            i+":00"
         )
     };
 
@@ -10,11 +17,25 @@ const RenderReserveWrite : React.FC = () => {
         <div>
             시작시간
             <select name="start" id="start">
-                {times}
+                {times.map((time,i)=>{
+                    return (
+                        <option 
+                            key ={i}
+                            value={`${times[i]}`}                                  
+                        >{time} </option> 
+                    )
+                })}
             </select>
             종료시간
             <select name="end" id="end">
-                {times}
+                {times.map((time,i)=>{
+                    return (
+                        <option 
+                            key ={i}
+                            value={`${times[i]}`}                                  
+                        >{time} </option> 
+                    )
+                })}
             </select>
             <br/>
             <label>
@@ -24,7 +45,7 @@ const RenderReserveWrite : React.FC = () => {
             <input type='text' name='phone' id='phone' placeholder="전화번호" size={10}/>
             </label>
             <br/>
-            <button>예약하기</button>
+            <button onClick={createClass}>예약하기</button>
         </div>
     )
 };
