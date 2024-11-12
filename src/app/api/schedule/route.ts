@@ -4,17 +4,17 @@ import executeQuery from '../MysqlConn'
 export async function insertSchedule(req: Request) {
   let sql: string = "SELECT * from TB_RESERVE_DATA";
   const result = await executeQuery(sql, '');
-  return new Response(JSON.stringify([result]), { status: 200 });
+  return new Response(JSON.stringify(result), { status: 200 });
 }
 
 export async function GET(request: Request) {
   const connection = await getConnection();
   const text = await request.text();
   const sql = "SELECT * from TB_RESERVE_DATA";
-
+  
   const result = await query(connection, sql);
   connection.release();
-  return new Response(JSON.stringify([result]), { status: 200 });
+  return new Response(JSON.stringify(result[0]));
 }
 
 export async function POST(req: Request) {

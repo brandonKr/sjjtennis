@@ -2,10 +2,10 @@ import { createPool } from 'mysql2'
 
 const pool = createPool({
     host: 'localhost',
-    user: 'ssjjang',
-    password: 'rkflWkd091!',
+    user: 'root',
+    password: '1234q',
     database: 'ssjang',
-    port: 3106,
+    port: 3306,
 })
 
 pool.getConnection((err, conn) => {

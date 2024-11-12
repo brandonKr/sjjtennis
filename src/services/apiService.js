@@ -1,4 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
 
-export const executeQuery = async (params) =>
-    axios.post(`http://localhost:3000/api/schedule`, params);
+export const getList = async () =>
+    axios.get(`http://localhost:3000/api/schedule`, "").then((res) => res.data);
