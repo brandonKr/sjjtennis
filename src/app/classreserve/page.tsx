@@ -10,7 +10,7 @@ const list = (await axios.get(`http://localhost:3000/api/schedule`)).data;
 const ReadSection = () => {
     return (
       <div className="space-y-2">
-      <div className="mt-2 text-center font-bold text-2xl">TODO LIST</div>
+      <div className="mt-2 text-center font-bold text-2xl">Lesson 예약 내역</div>
       <div className="rounded-lg border border-gray-800">
         <ul role="list" className="divide-y divide-gray-500">
           {list.map((item: { NAME: number; PHONE: string }) => (
